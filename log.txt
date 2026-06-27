@@ -1,0 +1,245 @@
+2026-06-21 16:24:53.079283: I external/local_xla/xla/tsl/cuda/cudart_stub.cc:31] Could not find cuda drivers on your machine, GPU will not be used.
+2026-06-21 16:24:53.398399: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-06-21 16:25:09 | INFO     | __main__:main - KiTS23 Clustering Pipeline — project root: /content/kits23_210626_2100
+2026-06-21 16:25:09 | INFO     | __main__:run_pipeline - Random seed set to 42 (numpy, stdlib, and all estimator random_state values). Residual non-determinism: parallel UMAP may produce slightly different embeddings across runs due to floating-point ordering in multi-threaded nearest-neighbor computation — this is inherent to the algorithm and does not affect scientific conclusions.
+2026-06-21 16:25:09 | INFO     | __main__:run_pipeline - UMAP clustering ENABLED: density methods will include a UMAP-10D candidate space alongside PCA variants.
+2026-06-21 16:25:09 | INFO     | __main__:stage_ingest - === Stage 1: Data Ingestion ===
+2026-06-21 16:25:09 | INFO     | src.data_ingestion:ingest_dataset - Verifying KiTS23 dataset directory.
+2026-06-21 16:25:09 | INFO     | src.data_ingestion:scan_instances - Scanning 489 case directories in /content/kits23_210626_2100/data/raw/kits23/dataset
+2026-06-21 16:49:50 | INFO     | src.data_ingestion:scan_instances - Valid lesions: 1395 (Tumor: 561, Cyst: 834)
+2026-06-21 16:49:50 | INFO     | src.data_ingestion:scan_instances - Skipped empty: 0, skipped < 10 voxels: 0
+2026-06-21 16:49:50 | INFO     | src.data_ingestion:compute_kidney_baselines - Computing kidney HU baseline for 489 cases.
+2026-06-21 16:49:50 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 1/489
+2026-06-21 16:52:55 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 50/489
+2026-06-21 16:56:47 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 100/489
+2026-06-21 17:00:13 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 150/489
+2026-06-21 17:03:51 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 200/489
+2026-06-21 17:07:03 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 250/489
+2026-06-21 17:10:45 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 300/489
+2026-06-21 17:13:01 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 350/489
+2026-06-21 17:14:56 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 400/489
+2026-06-21 17:18:40 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline progress: 450/489
+2026-06-21 17:21:12 | INFO     | src.data_ingestion:compute_kidney_baselines - Baseline computed: 1389/1395 lesions (488 cases). Mean HU: 106.8 ± 33.9
+2026-06-21 17:21:12 | INFO     | src.data_ingestion:prepare_lesions - Saved lesions to /content/kits23_210626_2100/data/processed/lesions.csv
+2026-06-21 17:21:12 | SUCCESS  | __main__:stage_ingest - Data ingestion complete.
+2026-06-21 17:21:12 | INFO     | __main__:stage_features - === Stage 2: Feature Extraction ===
+2026-06-21 17:21:12 | INFO     | __main__:stage_features - Resuming from cached /content/kits23_210626_2100/data/processed/features.csv (last modified 2026-06-18 13:24:34). If the extraction code or input data has changed since then, use --no-resume-extraction to force a fresh run.
+2026-06-21 17:21:12 | INFO     | src.data_ingestion:prepare_lesions - Loading cached lesions from /content/kits23_210626_2100/data/processed/lesions.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:build_radiomics_extractor - Pyradiomics extractor initialized with classes: ('firstorder', 'shape', 'glcm', 'gldm', 'glrlm', 'glszm', 'ngtdm')
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:extract_radiomics - Features file already exists at /content/kits23_210626_2100/data/processed/features.csv — loading cached results.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Removed 0 diagnostics columns. Shape features retained.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Numeric features remaining: 107
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Removed 0 columns with NaN > 50%
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Removed 0 near-zero variance columns.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Removed 62 highly correlated columns (Spearman > 0.95).
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - HU DIAGNOSTIC: 11/11 firstorder features survived cleaning.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features -   ✓ firstorder_Mean SURVIVED → ['original_firstorder_Mean']
+2026-06-21 17:21:12 | WARNING  | src.feature_extraction:clean_features -   ✗ firstorder_Median was REMOVED by cleaning pipeline
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features -   ✓ firstorder_10Percentile SURVIVED → ['original_firstorder_10Percentile']
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features -   ✓ firstorder_90Percentile SURVIVED → ['original_firstorder_90Percentile']
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features -   Surviving firstorder features: ['original_firstorder_10Percentile', 'original_firstorder_90Percentile', 'original_firstorder_Entropy', 'original_firstorder_InterquartileRange', 'original_firstorder_Kurtosis', 'original_firstorder_Maximum', 'original_firstorder_Mean', 'original_firstorder_Minimum', 'original_firstorder_Range', 'original_firstorder_RootMeanSquared']
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:clean_features - Final feature set: 45 features, 1395 samples.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:run_feature_pipeline - Saved cleaned features to /content/kits23_210626_2100/data/processed/features_clean.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features - Feature selection (ANOVA F-test): 45 → 30 features retained.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features - Saved feature selection ranking to /content/kits23_210626_2100/outputs/feature_selection_ranking.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   Firstorder/HU features selected: 8/30 (total available: 11)
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_gldm_LargeDependenceHighGrayLevelEmphasis  F=   1407.78  p=1.62e-213
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glcm_Autocorrelation                       F=   1186.23  p=1.44e-188
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glszm_ZoneEntropy                          F=    897.35  p=1.33e-152
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_shape_LeastAxisLength                      F=    644.27  p=3.88e-117
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glrlm_RunEntropy                           F=    605.48  p=2.59e-111
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_gldm_DependenceEntropy                     F=    482.20  p=5.11e-92
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_firstorder_Range                           F=    411.93  p=1.94e-80
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_firstorder_Minimum                         F=    337.08  p=1.36e-67
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_firstorder_Skewness                        F=    322.60  p=4.82e-65
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glcm_Idmn                                  F=    305.91  p=4.46e-62
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:run_feature_pipeline - Feature set narrowed to 30 discriminative features before scaling/PCA.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:scale_features - Scaled features: shape=(1395, 30), mean≈0.000000, std≈1.000000
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca - PCA: 30 → 12 components (95.46% variance retained).
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca - Saved PCA loadings to /content/kits23_210626_2100/outputs/pca_loadings.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca -   PC1 top features: ['original_glrlm_RunEntropy', 'original_glszm_ZoneEntropy', 'original_gldm_DependenceEntropy', 'original_glcm_Autocorrelation', 'original_glszm_HighGrayLevelZoneEmphasis'] (NO firstorder/HU features ✗)
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca -   PC2 top features: ['original_firstorder_Mean', 'original_firstorder_RootMeanSquared', 'original_firstorder_10Percentile', 'original_firstorder_90Percentile', 'original_firstorder_Skewness'] (includes firstorder/HU ✓)
+2026-06-21 17:21:12 | INFO     | __main__:_apply_voxel_filter - Voxel filter (>= 250): 1395 → 1093 lesions (302 removed, 0 of which had no n_voxels match).
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features - Feature selection (ANOVA F-test): 30 → 30 features retained.
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features - Saved feature selection ranking to /content/kits23_210626_2100/outputs/feature_selection_ranking.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   Firstorder/HU features selected: 8/30 (total available: 8)
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_gldm_LargeDependenceHighGrayLevelEmphasis  F=    800.31  p=1.69e-132
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glcm_Autocorrelation                       F=    769.59  p=1.30e-128
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glszm_ZoneEntropy                          F=    555.10  p=1.50e-99
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_gldm_DependenceEntropy                     F=    446.75  p=2.17e-83
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glrlm_RunEntropy                           F=    380.93  p=5.33e-73
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_firstorder_Skewness                        F=    365.50  p=1.70e-70
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_shape_LeastAxisLength                      F=    309.93  p=2.96e-61
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_firstorder_Mean                            F=    296.83  p=5.08e-59
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_glcm_Idmn                                  F=    230.30  p=2.45e-47
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:select_discriminative_features -   ✓ original_gldm_SmallDependenceLowGrayLevelEmphasis   F=    201.35  p=4.58e-42
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:scale_features - Scaled features: shape=(1093, 30), mean≈0.000000, std≈1.000000
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca - PCA: 30 → 12 components (95.63% variance retained).
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca - Saved PCA loadings to /content/kits23_210626_2100/outputs/pca_loadings.csv
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca -   PC1 top features: ['original_glcm_Autocorrelation', 'original_gldm_DependenceEntropy', 'original_glrlm_RunEntropy', 'original_glszm_ZoneEntropy', 'original_glszm_HighGrayLevelZoneEmphasis'] (NO firstorder/HU features ✗)
+2026-06-21 17:21:12 | INFO     | src.feature_extraction:apply_pca -   PC2 top features: ['original_gldm_DependenceNonUniformityNormalized', 'original_ngtdm_Contrast', 'original_glcm_Idmn', 'original_glcm_SumEntropy', 'original_gldm_SmallDependenceLowGrayLevelEmphasis'] (NO firstorder/HU features ✗)
+2026-06-21 17:21:12 | SUCCESS  | __main__:stage_features - Feature extraction complete.
+2026-06-21 17:21:12 | INFO     | __main__:stage_cluster - === Stage 3: Clustering ===
+2026-06-21 17:21:12 | INFO     | src.clustering:run_all_clustering - Running clustering pipeline: X_pca=(1093, 12), X_scaled=(1093, 30).
+2026-06-21 17:21:22 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 5D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:21:24 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 10D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:21:26 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 15D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:21:26 | INFO     | src.clustering:grid_search_hdbscan - HDBSCAN grid search: 8 space variants × 192 configs (n_samples=1093).
+2026-06-21 17:22:11 | INFO     | src.clustering:grid_search_hdbscan - Top HDBSCAN grid results:
+pca_components  min_cluster_size  min_samples method  epsilon  n_clusters  n_noise  coverage   dbcv  base_score  count_penalty  final_score
+      UMAP-10D                80           10    eom      0.0           3       44    0.9597 0.3544      0.3402         0.8696       0.2958
+      UMAP-10D                80           10    eom      0.5           3       44    0.9597 0.3544      0.3402         0.8696       0.2958
+      UMAP-10D                80           10    eom      0.3           3       44    0.9597 0.3544      0.3402         0.8696       0.2958
+       UMAP-5D                60           10   leaf      0.5           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                60           10    eom      0.5           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                60           10    eom      0.3           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                80           10   leaf      0.0           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                60           10    eom      0.0           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                80           10    eom      0.3           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+       UMAP-5D                80           10   leaf      0.3           3       40    0.9634 0.3263      0.3144         0.8696       0.2734
+2026-06-21 17:22:11 | INFO     | src.clustering:grid_search_hdbscan - Best HDBSCAN params: {'min_cluster_size': 80, 'min_samples': 10, 'method': 'eom', 'epsilon': 0.0, 'pca_components': 'UMAP-10D'} (score=0.2958)
+2026-06-21 17:22:11 | INFO     | src.clustering:grid_search_hdbscan - >>> HDBSCAN grid winner used PCA space: UMAP-10D dimensions
+2026-06-21 17:22:11 | INFO     | src.clustering:fit_hdbscan - HDBSCAN: 3 clusters, 44 noise (4.0%), coverage=96.0%, DBCV=0.3544
+2026-06-21 17:22:13 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 5D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:22:16 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 10D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:22:18 | INFO     | src.clustering:compute_umap_embedding - UMAP clustering embedding: 30 → 15D (min_dist=0.0, n_neighbors=15).
+2026-06-21 17:22:18 | INFO     | src.clustering:grid_search_optics - OPTICS grid search: 1152 total configs across ['xi', 'dbscan'] methods (n_samples=1093).
+2026-06-21 17:39:26 | INFO     | src.clustering:grid_search_optics - Top OPTICS grid results:
+pca_components cluster_method  min_samples  min_cluster_size  xi  eps  n_clusters  n_noise  coverage  silhouette  base_score  count_penalty  final_score
+      UMAP-10D         dbscan            5                30 NaN  0.5           2        6    0.9945      0.5510      0.5449         1.0000       0.5449
+      UMAP-10D         dbscan            5                50 NaN  0.5           2        6    0.9945      0.5510      0.5449         1.0000       0.5449
+      UMAP-10D         dbscan            5                10 NaN  0.5           2        6    0.9945      0.5510      0.5449         1.0000       0.5449
+      UMAP-10D         dbscan            5                20 NaN  0.5           2        6    0.9945      0.5510      0.5449         1.0000       0.5449
+             2         dbscan            3                50 NaN  1.0           3       29    0.9735      0.3737      0.3541         0.8696       0.3079
+             2         dbscan            3                30 NaN  1.0           3       29    0.9735      0.3737      0.3541         0.8696       0.3079
+             2         dbscan            3                20 NaN  1.0           3       29    0.9735      0.3737      0.3541         0.8696       0.3079
+             2         dbscan            3                10 NaN  1.0           3       29    0.9735      0.3737      0.3541         0.8696       0.3079
+      UMAP-10D         dbscan           10                10 NaN  0.5           5       31    0.9716      0.2672      0.2522         0.6897       0.1740
+      UMAP-10D         dbscan           10                50 NaN  0.5           5       31    0.9716      0.2672      0.2522         0.6897       0.1740
+2026-06-21 17:39:26 | INFO     | src.clustering:grid_search_optics - Best OPTICS params: {'cluster_method': 'dbscan', 'min_samples': 5, 'min_cluster_size': 10, 'xi': None, 'eps': 0.5, 'pca_components': 'UMAP-10D'} (score=0.5449)
+2026-06-21 17:39:26 | INFO     | src.clustering:grid_search_optics - >>> OPTICS grid winner: method=dbscan, space=UMAP-10D
+2026-06-21 17:39:27 | INFO     | src.clustering:fit_optics - OPTICS (dbscan): 2 clusters, 6 noise (0.5%), coverage=99.5%
+2026-06-21 17:39:27 | INFO     | src.clustering:run_all_clustering - HDBSCAN: OK — 3 clusters.
+2026-06-21 17:39:27 | INFO     | src.clustering:run_all_clustering - OPTICS: OK — 2 clusters.
+2026-06-21 17:39:27 | INFO     | src.clustering:run_all_clustering - K-Means: OK — 2 clusters.
+2026-06-21 17:39:27 | INFO     | src.clustering:run_all_clustering - GMM: OK — 2 clusters.
+2026-06-21 17:39:27 | SUCCESS  | __main__:stage_cluster - Clustering complete.
+2026-06-21 17:39:27 | INFO     | __main__:stage_evaluate - === Stage 4: Evaluation ===
+2026-06-21 17:39:27 | INFO     | __main__:_quarantine_stale_outputs - Quarantined 19 stale output file(s) from /content/kits23_210626_2100/outputs (deleted only after a successful run).
+2026-06-21 17:39:27 | INFO     | src.evaluation:compute_external_metrics - HDBSCAN: ARI_nn=0.4377, ARI_all=0.4047, NMI_nn=0.3845, NMI_all=0.3547, Purity=0.8437, Coverage=96.0%, Cov×ARI=0.4201
+2026-06-21 17:39:27 | INFO     | src.evaluation:compute_external_metrics - OPTICS: ARI_nn=0.4592, ARI_all=0.4541, NMI_nn=0.3778, NMI_all=0.3730, Purity=0.8390, Coverage=99.5%, Cov×ARI=0.4567
+2026-06-21 17:39:27 | INFO     | src.evaluation:compute_external_metrics - K-Means(k=2): ARI_nn=0.4015, ARI_all=0.4015, NMI_nn=0.3198, NMI_all=0.3198, Purity=0.8170, Coverage=100.0%, Cov×ARI=0.4015
+2026-06-21 17:39:27 | INFO     | src.evaluation:compute_external_metrics - GMM(k=2): ARI_nn=0.3327, ARI_all=0.3327, NMI_nn=0.2576, NMI_all=0.2576, Purity=0.7887, Coverage=100.0%, Cov×ARI=0.3327
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods - ═══ HEADLINE: Best method by Coverage×ARI: OPTICS (0.4567) ═══
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods - ─── Best Per Category ───
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods -   Density winner:  OPTICS — Coverage×ARI=0.4567  (DBCV=0.5510, Coverage=99.5%, ARI_nn=0.4592)
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods -   Centroid winner: K-Means(k=2) — ARI=0.4015  (Coverage=100%, NMI=0.3198)
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods - ─── Full Metrics Table (sorted by Coverage×ARI) ───
+      Method  Comparison_Category  Coverage_x_ARI     DBCV  ARI_with_noise  Coverage   Purity
+      OPTICS unsupervised_density        0.456690 0.550982        0.454090  0.994511 0.839006
+     HDBSCAN unsupervised_density        0.420054 0.354428        0.404726  0.959744 0.843661
+K-Means(k=2)         supervised_k        0.401455      NaN        0.401455  1.000000 0.817017
+    GMM(k=2)         supervised_k        0.332679      NaN        0.332679  1.000000 0.788655
+2026-06-21 17:39:27 | INFO     | src.evaluation:evaluate_all_methods - NOTE: Use DBCV for internal (unsupervised) quality claims; ARI for external validation against ground truth; Coverage×ARI for fair cross-category comparison (density vs centroid). This is the methodologically correct split.
+2026-06-21 17:39:27 | INFO     | src.evaluation:run_evaluation - Saved hdbscan_grid (1536 rows) to /content/kits23_210626_2100/outputs/hdbscan_grid.csv
+2026-06-21 17:39:27 | INFO     | src.evaluation:run_evaluation - Saved optics_grid (1152 rows) to /content/kits23_210626_2100/outputs/optics_grid.csv
+2026-06-21 17:39:27 | INFO     | src.evaluation:run_evaluation - Saved cluster labels to /content/kits23_210626_2100/outputs/cluster_labels.csv
+2026-06-21 17:39:27 | INFO     | src.evaluation:run_evaluation - Computing UMAP 2D for HDBSCAN from 10-dim clustering space (matches where labels were discovered).
+2026-06-21 17:39:27 | INFO     | src.evaluation:compute_umap_2d - Computing UMAP 2D embedding.
+2026-06-21 17:39:29 | INFO     | src.evaluation:run_evaluation - Computing UMAP 2D for OPTICS from 10-dim clustering space (matches where labels were discovered).
+2026-06-21 17:39:29 | INFO     | src.evaluation:compute_umap_2d - Computing UMAP 2D embedding.
+2026-06-21 17:39:32 | INFO     | src.evaluation:compute_umap_2d - Computing UMAP 2D embedding.
+2026-06-21 17:39:34 | INFO     | src.evaluation:plot_ground_truth_umap - Saved ground truth plot to /content/kits23_210626_2100/outputs/ground_truth_2d.png
+2026-06-21 17:39:35 | INFO     | src.evaluation:plot_clustering_comparison - Saved clustering comparison plot to /content/kits23_210626_2100/outputs/clustering_comparison.png
+2026-06-21 17:39:35 | INFO     | src.evaluation:plot_clustering_with_ground_truth - Saved clustering visualization to /content/kits23_210626_2100/outputs/hdbscan_optics_ground_truth.png
+2026-06-21 17:39:38 | INFO     | src.evaluation:plot_optics_reachability - Saved OPTICS reachability plot to /content/kits23_210626_2100/outputs/optics_reachability.png
+2026-06-21 17:39:39 | INFO     | src.evaluation:plot_cluster_feature_heatmap - Saved feature heatmap to /content/kits23_210626_2100/outputs/cluster_feature_heatmap.png
+2026-06-21 17:39:39 | INFO     | src.evaluation:plot_contingency_tables - Saved contingency plots to /content/kits23_210626_2100/outputs/contingency_tables.png
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_tumor_subclusters - Tumor samples in HDBSCAN clusters: 517 (clusters: [np.int64(0), np.int64(1), np.int64(2)])
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_tumor_subclusters - Significant features (p < 0.05): 28/30
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_tumor_subclusters - Top 10 discriminating features:
+                                     feature  F_statistic      p_value  significant
+                   original_firstorder_Range   171.088998 1.118298e-57         True
+               original_glcm_Autocorrelation   154.280807 3.305468e-53         True
+                 original_firstorder_Maximum   150.167872 4.375449e-52         True
+                    original_firstorder_Mean   137.293166 1.687584e-48         True
+                  original_glszm_ZoneEntropy   117.592761 8.872619e-43         True
+     original_glszm_LowGrayLevelZoneEmphasis   116.526406 1.846019e-42         True
+                original_firstorder_Skewness   113.279686 1.740331e-41         True
+            original_firstorder_90Percentile   104.669473 7.356417e-39         True
+original_glszm_SmallAreaLowGrayLevelEmphasis    94.144090 1.455708e-35         True
+    original_glszm_HighGrayLevelZoneEmphasis    84.334173 2.116468e-32         True
+2026-06-21 17:39:39 | INFO     | src.data_ingestion:load_kits23_metadata - Loaded metadata for 489 cases.
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_histologic_subtypes - Histologic subtype distribution:
+Histologic_Subtype
+clear_cell_rcc                 666
+papillary_rcc                  138
+oncocytoma                      60
+chromophobe_rcc                 50
+clear_cell_papillary            44
+transitional_cell_carcinoma     40
+other                           36
+Unknown                         19
+angiomyolipoma                  15
+rcc_unclassified                 7
+multilocular_cystic_rcc          5
+wilms_tumor                      5
+spindle_cell_neoplasm            3
+mest                             3
+cyst                             2
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_histologic_subtypes - Subtype × Cluster contingency:
+Cluster                      -1    0    1    2   All
+Histologic_Subtype                                  
+angiomyolipoma                1    9    4    1    15
+chromophobe_rcc               3   12   22   13    50
+clear_cell_papillary          1   18   12   13    44
+clear_cell_rcc               27  335  246   58   666
+cyst                          0    1    1    0     2
+mest                          0    1    2    0     3
+multilocular_cystic_rcc       0    4    1    0     5
+oncocytoma                    1   34   19    6    60
+other                         2   27    3    4    36
+papillary_rcc                 7  105   20    6   138
+rcc_unclassified              0    4    2    1     7
+spindle_cell_neoplasm         0    3    0    0     3
+transitional_cell_carcinoma   1   32    3    4    40
+wilms_tumor                   0    5    0    0     5
+All                          43  590  335  106  1074
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_histologic_subtypes - Tumor subtype proportions per cluster:
+Cluster                          0      1      2
+Histologic_Subtype                              
+angiomyolipoma               0.060  0.012  0.015
+chromophobe_rcc              0.009  0.067  0.194
+clear_cell_papillary         0.017  0.030  0.030
+clear_cell_rcc               0.422  0.741  0.507
+cyst                         0.000  0.003  0.000
+mest                         0.009  0.006  0.000
+multilocular_cystic_rcc      0.009  0.003  0.000
+oncocytoma                   0.043  0.058  0.045
+other                        0.034  0.009  0.060
+papillary_rcc                0.198  0.055  0.090
+rcc_unclassified             0.009  0.006  0.015
+spindle_cell_neoplasm        0.009  0.000  0.000
+transitional_cell_carcinoma  0.138  0.009  0.045
+wilms_tumor                  0.043  0.000  0.000
+2026-06-21 17:39:39 | INFO     | src.evaluation:analyze_histologic_subtypes - Saved subtype heatmap to /content/kits23_210626_2100/outputs/subtype_heatmap.png
+2026-06-21 17:39:39 | INFO     | src.evaluation:bootstrap_stability - Bootstrap stability: 100 iterations × 80% subsample.
+2026-06-21 17:39:42 | WARNING  | src.evaluation:bootstrap_stability - No valid bootstrap iterations.
+2026-06-21 17:39:42 | INFO     | __main__:stage_evaluate - Metrics saved to /content/kits23_210626_2100/outputs/clustering_metrics.csv
+2026-06-21 17:39:42 | SUCCESS  | __main__:stage_evaluate - Evaluation complete. Plots saved to /content/kits23_210626_2100/outputs
+2026-06-21 17:39:42 | INFO     | __main__:run_pipeline - === Supervised Sanity Check ===
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_supervised_sanity_check - ============================================================
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_supervised_sanity_check - SUPERVISED SANITY CHECK
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_supervised_sanity_check - ============================================================
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_supervised_sanity_check - Class distribution: 555 Tumor, 538 Cyst (ratio 1.03:1)
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_lda_projection - LDA projection: Fisher's discriminant ratio = 3.8000
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_lda_projection -   Tumor: mean=1.352, std=1.140, n=555
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_lda_projection -   Cyst:  mean=-1.395, std=0.828, n=538
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_lda_projection - Fisher ratio > 2.0 — strong supervised separation exists. This direction is likely low-variance (PCA misses it).
+2026-06-21 17:39:42 | INFO     | src.supervised_check:run_lda_projection - Saved LDA projection plot to /content/kits23_210626_2100/outputs/lda_projection.png
+2026-06-21 17:39:43 | INFO     | src.supervised_check:run_quick_classifier - Logistic Regression: ROC-AUC=0.9593±0.0166, Balanced-Acc=0.9080±0.0197, F1-Macro=0.9076±0.0197
+2026-06-21 17:39:49 | INFO     | src.supervised_check:run_quick_classifier - Random Forest: ROC-AUC=0.9552±0.0160, Balanced-Acc=0.9015±0.0269, F1-Macro=0.9011±0.0269
+2026-06-21 17:39:49 | INFO     | src.supervised_check:run_supervised_sanity_check - Saved supervised results to /content/kits23_210626_2100/outputs/supervised_sanity_check.csv
+2026-06-21 17:39:49 | INFO     | src.supervised_check:run_supervised_sanity_check - INTERPRETATION: STRONG supervised separation (AUC=0.959, Fisher=3.800). Tumor/Cyst signal EXISTS but lives on a low-variance axis that PCA discards. Unsupervised clustering in PCA space cannot recover it — this is the key finding.
+2026-06-21 17:39:49 | SUCCESS  | __main__:run_pipeline - Supervised sanity check complete.
